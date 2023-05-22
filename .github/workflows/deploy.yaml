@@ -60,7 +60,7 @@ jobs:
                   http:
                     "/":
                       type: prefix
-                      port: 80
+                      port: 8443
           containers:
             frontend:
               image: $ECR/$IMAGE:$TAG

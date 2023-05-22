@@ -1,0 +1,22 @@
+apiVersion: score.dev/v1b1
+
+metadata:
+  name: "fred"
+
+# Define the ports that this service exposes
+service:
+  ports:
+    www:
+      port: 8443 # The port that the service will be exposed on
+      targetPort: 8443 # The port that the container will be listening on
+
+# Define the containers that make up this service
+containers:
+  frontend:
+    variables:
+      PORT: "8443"
+
+# Define the resources that this service needs
+resources:
+  dns: # We need a DNS record to point to the service 
+    type: dns
