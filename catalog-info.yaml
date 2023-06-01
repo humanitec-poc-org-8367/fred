@@ -1,3 +1,4 @@
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
@@ -9,3 +10,31 @@ spec:
   type: service
   owner: user:guest
   lifecycle: experimental
+  providesApis:
+    - TimeOfDay
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: TimeOfDay
+  description: Reports current time of day
+spec:
+  type: openapi
+  owner: user:guest
+  lifecycle: experimental
+  definition: |
+    openapi: "3.0.0"
+    info:
+      version: 1.0.0
+      title: TimeOfDay API
+    paths:
+      /time:
+        get:
+          summary: Current time of day
+          responses: 
+            200:
+              content:
+                text/plain:
+                  schema:
+                    type: string
