@@ -24,7 +24,6 @@ class Time():
     timeOfDay: str
 
 
-
 async def main():
     app = tornado.web.Application([
         (r"/time", TimeHandler)
