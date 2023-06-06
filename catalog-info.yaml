@@ -35,6 +35,11 @@ spec:
           responses: 
             200:
               content:
-                text/plain:
+                application/json:
                   schema:
-                    type: string
+                    type: object
+                    required:
+                      - timeOfDay
+                    properties:
+                      timeOfDay:
+                        type: string
