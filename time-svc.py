@@ -20,16 +20,22 @@ class TimeHandler(tornado.web.RequestHandler):
 class ResourceTimeHandler(tornado.web.RequestHandler):
     async def get(self, resourceId):
         logging.info('called dynamic endpoint with resId:' + resourceId)
-        realTime = datetime.now()
-
-        hour = realTime.hour
-        if 0 <= hour < 12:
-            time = "morning"
-        elif 12 <= hour < 18:
-            time = "afternoon"
+        if resourceId not in consumers:
+            logging.error('resource not registered resId:' + resourceId)
+            self.set_status(404);
+        
         else:
-            time = "evening"
-        self.write(json.dumps(asdict(Time(time + " ( " + realTime.strftime("%m/%d/%Y, %H:%M:%S") + " )"))))
+
+            realTime = datetime.now()
+
+            hour = realTime.hour
+            if 0 <= hour < 12:
+                time = "morning"
+            elif 12 <= hour < 18:
+                time = "afternoon"
+            else:
+                time = "evening"
+            self.write(json.dumps(asdict(Time(time + " ( " + realTime.strftime("%m/%d/%Y, %H:%M:%S") + " )"))))
 
 class ConsumerHandler(tornado.web.RequestHandler):
     
